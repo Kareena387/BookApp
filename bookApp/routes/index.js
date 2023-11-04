@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var books = require('../resources/books')
+var books = require('../resources/books')-access resources file
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
