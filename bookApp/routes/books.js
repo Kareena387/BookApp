@@ -10,22 +10,44 @@ router.get('/add', function (req, res, next) {
     res.render('addBooks', { title: 'Add Books' });
 });
 
-router.post('/save', function (req, res, next) {
-    books.push({ ...req.body, _id: `00${books.length + 1}` })
+router.post('/save',  async function (req, res, next) {
+    //books.push({ ...req.body, _id: `00${books.length + 1}` })
+    await Book.insertMany([req.body])
     res.redirect('/')
 })
 
 
-router.get('/edit/:_id', function(req, res, next){
-    const book = books.find((book)=>book._id === req.params._id)
-    res.render('editBooks', {title: "Edit Books", book})
+
+/*router.get('/remove/:_id', async function (req, res) {
+  console.log(req.params._id);
+  await Book.findOneAndRemove({ _id: req.params._id })
+  const books = await Book.find()
+  res.render('index', { title: 'Book App', bookList: books, redirectUrl: '/' });
+})*/
+
+
+router.get('/edit/:_id',  async function(req, res, next){
+  console.log(req.params. _id);
+  const book = await Book.findOne({ _id: req.params._id });
+    //const book = books.find((book)=>book._id === req.params._id)
+    res.render('editBooks', {
+      title: "Edit Books", 
+      book})
   })
 
   router.post('/saveEdited/:_id', function(req, res, next){
-    const currIndex = books.findIndex((book)=>book._id === req.params._id)
-    books.splice(currIndex, 1, {...req.body, _id: req.params._id})
+    const currIndex = Book.findIndex((book)=>book._id === req.params._id)
+    Book.splice(currIndex, 1, {...req.body, _id: req.params._id})
     res.redirect('/')
   })
+
+  /*router.post('/edit/:_id', async function (req, res) {
+    await Book.findOneAndUpdate({ _id: req.params._id }, { ...req.body })
+    res.redirect('/');
+  })*/ 
+
+
+  
 
   
   

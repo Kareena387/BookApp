@@ -8,3 +8,4 @@ db.on('error', (err) => console.log('MongoDB error occured:', err))//callback fu
 db.once('open', () => {
   console.log('Connected to MongoDB')
 })
+
