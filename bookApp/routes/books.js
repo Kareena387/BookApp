@@ -44,9 +44,25 @@ router.get('/edit/:_id',  async function(req, res, next){
   /*router.post('/edit/:_id', async function (req, res) {
     await Book.findOneAndUpdate({ _id: req.params._id }, { ...req.body })
     res.redirect('/');
-  })*/ 
+  })*/
+  
+//deletion
+router.get('/delete/:_id', function(req, res ,next){
+  const delIndex = Book.findIndex((book) => book._id === req.params._id);
+  if(delIndex !== -1){
+    Book.splice(delIndex, 1);
+    console.log(`Book with _id ${req.params._id} deleted`);
 
+  }
+  else{console.log(`Book with _id ${req.params._id} not found`);}
+  res.redirect('/');
+});
 
+router.post('/saveDelete/:_id', function(req ,res ,next){
+  const currIndex = Book.findIndex((book) => book._id === req.params. _id)
+
+res.redirect('/')
+})
   
 
   
